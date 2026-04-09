@@ -1,0 +1,40 @@
+# --- Binaries ---
+# Compiled files, programs, and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+# Binaries produced by 'go build' (if you don't name them explicitly)
+bin/
+
+# --- Test Artifacts ---
+# Test binary, built with `go test -c`
+*.test
+# Code coverage profiles and other test artifacts
+*.out
+coverage.*
+*.coverprofile
+profile.cov
+
+# --- Dependencies ---
+# Only uncomment the line below if you use the 'vendor/' directory 
+# and do NOT want to check it into source control.
+# vendor/
+
+# --- Workspaces ---
+# Go workspace files (for multi-module local development)
+go.work
+go.work.sum
+*.sum
+# --- Environments & Secrets ---
+# Sensitive environment variables
+.env
+
+# --- IDEs & Editors ---
+# Common editor-specific ignore rules
+.idea/
+.vscode/
+*.swp
+*.bak
+*.txt
