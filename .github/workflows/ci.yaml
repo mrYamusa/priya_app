@@ -1,4 +1,4 @@
-name: Continous Integration
+name: Continuous Integration
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 env:
   DB_NAME: test
   DB_PASSWORD: dummy
-  DB_USER: root
+  DB_USER: test_user
 
 jobs:
   run_code_checks:
@@ -19,8 +19,14 @@ jobs:
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
-          sudo mysql -e "ALTER USER '${{ env.DB_USER }}'@'localhost' IDENTIFIED BY '${{ env.DB_PASSWORD }}';"
-          sudo mysql -e "CREATE DATABASE ${{ env.DB_NAME }};" -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+
+          # Create database
+          sudo mysql -e "CREATE DATABASE ${{ env.DB_NAME }};"
+
+          # Create user and grant privileges
+          sudo mysql -e "CREATE USER '${{ env.DB_USER }}'@'%' IDENTIFIED BY '${{ env.DB_PASSWORD }}';"
+          sudo mysql -e "GRANT ALL PRIVILEGES ON ${{ env.DB_NAME }}.* TO '${{ env.DB_USER }}'@'%';"
+          sudo mysql -e "FLUSH PRIVILEGES;"
 
       - name: Checkout Repo Code
         uses: actions/checkout@v3
